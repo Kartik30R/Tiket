@@ -7,6 +7,7 @@ import (
 	"github.com/Kartik30R/Tiket.git/db"
 	"github.com/Kartik30R/Tiket.git/handlers"
 	"github.com/Kartik30R/Tiket.git/repositories"
+	"github.com/Kartik30R/Tiket.git/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,7 +28,7 @@ router := gin.Default()
    authService := services.NewAuthService(authRepo)
 
    server := router.Group("/api")
-      handlers.NewAuthHandler(server.Group("/auth"),eventRepo)
+      handlers.NewAuthHandler(server.Group("/auth"),authService)
 	  privateRoute:=server.Use(middleware.AuthProtected(db))
 
    
