@@ -30,11 +30,10 @@ router := gin.Default()
 
    server := router.Group("/api")
       handlers.NewAuthHandler(server.Group("/auth"),authService)
- protected := server.Group("/")  
-protected.Use(middleware.AuthProtected(db)) 
+server.Use(middleware.AuthProtected(db)) 
    
-   handlers.NewEventHandler(protected.Group("/event"),eventRepo)
-      handlers.NewTicketHandler(protected.Group("/ticket"),ticketRepo)
+   handlers.NewEventHandler(server.Group("/event"),eventRepo)
+      handlers.NewTicketHandler(server.Group("/ticket"),ticketRepo)
 
 
 router.Run(":" + cfg.ServerPort)
