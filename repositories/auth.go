@@ -16,6 +16,12 @@ func (r *AuthRepository) RegisterUser(ctx context.Context, registerData *models.
 		Password: registerData.Password,
 	}
 
+	if user.ID == 1 {
+		user.Role = "manager"
+	} else {
+		user.Role = "user"
+	}
+
 	res := r.db.Model(&models.User{}).Create(user)
 
 	if res.Error != nil {
